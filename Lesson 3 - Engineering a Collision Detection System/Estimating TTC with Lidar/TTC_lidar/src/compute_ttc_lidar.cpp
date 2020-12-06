@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <numeric>
 #include <opencv2/core.hpp>
@@ -14,6 +15,20 @@ void computeTTCLidar(std::vector<LidarPoint> &lidarPointsPrev,
     // auxiliary variables
     double dT = 0.1;        // time between two measurements in seconds
     double laneWidth = 4.0; // assumed width of the ego lane
+
+    // remove points outside of the lane
+    auto removePointsOutsideOfLane = [](std::vector<LidarPoint> &points,
+                                        double laneWidth) {
+      points.erase(std::remove_if(points.begin(), points.end(),
+                                  [laneWidth](const LidarPoint &point) {
+                                    double halfLaneWidth = laneWidth / 2.0;
+                                    return (point.y < -halfLaneWidth) ||
+                                           (point.y > halfLaneWidth);
+                                  }),
+                   points.end());
+    };
+    removePointsOutsideOfLane(lidarPointsPrev, laneWidth);
+    removePointsOutsideOfLane(lidarPointsCurr, laneWidth);
 
     // find closest distance to Lidar points within ego lane
     double minXPrev = 1e9, minXCurr = 1e9;
