@@ -89,12 +89,12 @@ int main()
     cv::Mat imgRef = cv::imread("../images/img2gray.png");
 
     vector<cv::KeyPoint> kptsSource, kptsRef; 
-    readKeypoints("../dat/C35A5_KptsSource_BRISK_large.dat", kptsSource);
-    readKeypoints("../dat/C35A5_KptsRef_BRISK_large.dat", kptsRef);
+    readKeypoints("../dat/C35A5_KptsSource_SIFT.dat", kptsSource);
+    readKeypoints("../dat/C35A5_KptsRef_SIFT.dat", kptsRef);
 
     cv::Mat descSource, descRef; 
-    readDescriptors("../dat/C35A5_DescSource_BRISK_large.dat", descSource);
-    readDescriptors("../dat/C35A5_DescRef_BRISK_large.dat", descRef);
+    readDescriptors("../dat/C35A5_DescSource_SIFT.dat", descSource);
+    readDescriptors("../dat/C35A5_DescRef_SIFT.dat", descRef);
 
     vector<cv::DMatch> matches;
     string matcherType = "MAT_FLANN"; 
