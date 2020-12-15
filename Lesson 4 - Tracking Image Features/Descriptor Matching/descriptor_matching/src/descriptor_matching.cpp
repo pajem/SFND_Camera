@@ -59,7 +59,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
                     matchImg, cv::Scalar::all(-1), cv::Scalar::all(-1), vector<char>(), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
     string windowName = "Matching keypoints between two camera images (best 50)";
-    cv::namedWindow(windowName, 7);
+    cv::namedWindow(windowName, cv::WINDOW_NORMAL);
     cv::imshow(windowName, matchImg);
     cv::waitKey(0);
 }
@@ -70,12 +70,12 @@ int main()
     cv::Mat imgRef = cv::imread("../images/img2gray.png");
 
     vector<cv::KeyPoint> kptsSource, kptsRef; 
-    readKeypoints("../dat/C35A5_KptsSource_BRISK_large.dat", kptsSource);
-    readKeypoints("../dat/C35A5_KptsRef_BRISK_large.dat", kptsRef);
+    readKeypoints("../dat/C35A5_KptsSource_BRISK_small.dat", kptsSource);
+    readKeypoints("../dat/C35A5_KptsRef_BRISK_small.dat", kptsRef);
 
     cv::Mat descSource, descRef; 
-    readDescriptors("../dat/C35A5_DescSource_BRISK_large.dat", descSource);
-    readDescriptors("../dat/C35A5_DescRef_BRISK_large.dat", descRef);
+    readDescriptors("../dat/C35A5_DescSource_BRISK_small.dat", descSource);
+    readDescriptors("../dat/C35A5_DescRef_BRISK_small.dat", descRef);
 
     vector<cv::DMatch> matches;
     string matcherType = "MAT_BF"; 
