@@ -14,7 +14,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
 {
 
     // configure matcher
-    bool crossCheck = false;
+    bool crossCheck = true;
     cv::Ptr<cv::DescriptorMatcher> matcher;
 
     if (matcherType.compare("MAT_BF") == 0)
