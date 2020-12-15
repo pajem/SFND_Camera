@@ -96,9 +96,11 @@ int main()
     readDescriptors("../dat/C35A5_DescSource_SIFT.dat", descSource);
     readDescriptors("../dat/C35A5_DescRef_SIFT.dat", descRef);
 
+    bool isDatasetBRISK = false;
+
     vector<cv::DMatch> matches;
-    string matcherType = "MAT_FLANN"; 
-    string descriptorType = "DES_BINARY"; 
+    string matcherType = "MAT_BF"; 
+    string descriptorType = isDatasetBRISK ? "DES_BINARY" : "DES_GRADIENT"; 
     string selectorType = "SEL_KNN"; 
     matchDescriptors(imgSource, imgRef, kptsSource, kptsRef, descSource, descRef, matches, descriptorType, matcherType, selectorType);
 }
