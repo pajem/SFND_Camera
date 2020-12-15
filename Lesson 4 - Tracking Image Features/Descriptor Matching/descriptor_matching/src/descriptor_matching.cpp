@@ -32,7 +32,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
             descRef.convertTo(descRef, CV_32F);
         }
 
-        //... TODO : implement FLANN matching
+        matcher = cv::DescriptorMatcher::create(cv::DescriptorMatcher::FLANNBASED);
         cout << "FLANN matching";
     }
 
@@ -54,7 +54,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
         matcher->knnMatch(descSource, descRef, kMatches, k);
 
         // filter matches using descriptor distance ratio test
-        bool filtering = false;
+        bool filtering = true;
         double descDistanceRatioThreshold = 0.8;
         for (auto& kMatch : kMatches) {
             if (!filtering) {
@@ -97,7 +97,7 @@ int main()
     readDescriptors("../dat/C35A5_DescRef_BRISK_large.dat", descRef);
 
     vector<cv::DMatch> matches;
-    string matcherType = "MAT_BF"; 
+    string matcherType = "MAT_FLANN"; 
     string descriptorType = "DES_BINARY"; 
     string selectorType = "SEL_KNN"; 
     matchDescriptors(imgSource, imgRef, kptsSource, kptsRef, descSource, descRef, matches, descriptorType, matcherType, selectorType);
